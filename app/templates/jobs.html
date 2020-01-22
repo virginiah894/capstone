@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="text-center mt-5 mb-2">
+    <a href="{% url 'newJob' %}">
+      <button class="btn btn-warning">Create Create</button>
+    </a>
+  </div>
+
+  <div class="row">
+    {% for job in jobs %}
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class=" card-body">
+          <a href="/view/post/{{post.id}}">
+            <h5 class="card-title">{{job.title}}</h5>
+            <h6>{{job.company}}</h6>
+          </a>
+          {% if job.image %}
+
+          <img src="{{job.image.url}}" alt="" height="250" width="250" style="border-radius: 50%;">
+
+{% endif %}
+          <a href="/user/{{user.username}}">
+            <h6 class="card-subtitle mb-2 text-muted">{{job.user}}</h6>
+          </a>
+          <p class="card-text">{{job.description| safe}}</p>
+          <p>{{job.}}</p>
+          <a href=" {{job.link}}" class="card-link">Job Link</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
