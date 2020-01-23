@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JOB LINK</title>
+</head>
+<body>
+
+
+  {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block content %}
+<link href='https://fonts.googleapis.com/css?family=Milonga' rel='stylesheet'>
+
+<div>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">JOBLINK</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+ 
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{%url 'profile'%}">Check profile</a>
+          <a class="dropdown-item" href="{% url 'newJob'%} ">Post A Job</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
+    </ul><form class="form-inline my-2 my-lg-0" role="search" action="">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="post">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+  </div>
+</nav>
+</div>
+  <button><a href="/accounts/login">LOGIN</a></button>
+  <a href="/accounts/register"> Sign up here</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+      
+        <h1>{{object.title}}</h1>
+
+        {% if object.image %}
+        <img src="{{object.image.url}}" alt="job image">
+        {% endif %}
+        <h2>{{object.company}}</h2>
+        <h3>{{object.description}}</h3>
+        <h4>Posted on : {{object.posted_date | date:'F d, Y'}}</h4>
+        <a href="{{object.link}}">Read More</a>
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+  {% endblock %}
+
+</body>
+
+</html>

@@ -33,11 +33,15 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{%url 'profile'%}">Check profile</a>
-          <a class="dropdown-item" href=" ">create and update profile</a>
+          <a class="dropdown-item" href="{% url 'newJob'%} ">Post A Job</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/logout">Logout</a>
         </div>
       </li>
+      <li>
+        <a href="{% url 'post-create'%}" style="padding-top: 10px;">create a post</a>
+      </li>
+
     </ul><form class="form-inline my-2 my-lg-0" role="search" action="">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="post">
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
@@ -53,12 +57,14 @@
       <div class="col-md-4">
         {% for job in jobs %}
         <h1>{{job.title}}</h1>
-        <h2>{{job.category}}</h2>
-        <h3>{{job.desciption}}</h3>
+
         {% if job.image %}
         <img src="{{job.image.url}}" alt="job image">
         {% endif %}
-        <a href="{{job.link.url}}">Read More</a>
+        <h2>{{job.company}}</h2>
+        <h3>{{job.description}}</h3>
+        <h4><a href="{% url 'job-detail' job.id%}">Visit job page</a></h4>
+        <a href="{{job.link}}">Read More</a>
 {% endfor %}
       </div>
 
