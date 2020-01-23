@@ -4,94 +4,38 @@ from .models import *
 from django.contrib import messages
 from .forms import AccountUpdate, DetailsUpdate,JobForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView
+from django.views.generic import CreateView,ListView,DetailView,CreateView
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
-from app.forms import AccountUpdate,DetailsUpdate,JobSignUpForm,JobForm,UserCreationForm,BasicSignUpForm,EmployerSignUpForm
-# def home(request):
-#     if request.user.is_authenticated:
-#         if request.user.is_jobseeker:
-#             return redirect('/')
-#         else:
-#             return redirect('/')
-#     return render(request, '/')
+from app.forms import *
 
-# class SignUpView(CreateView):
-#     model = User
-#     form = SignUpForm()
-#     template_name = 'registration/registration_form.html'
+# app/post_list.html
 
-    # def get_context_data(self, **kwargs):
-    #     kwargs['is_employer'] = True
-    #     return super().get_context_data(**kwargs)
 
-# Create your views here.
+class PostListView(ListView):
+    model = Job
+    template_name = 'index.html'
+    context_object_name = 'jobs'
+    ordering = ['-posted_date']
 
 
 
 
-
-class SignUpView(TemplateView):
-    template_name = 'registration/signup.html'
-
-
-def home(request):
-    if request.user.is_authenticated:
-        if request.user.is_jobseeker:
-            return redirect('/')
-        else:
-            return redirect('/')
-    return render(request, '/')
-
-class BasicSignUpView(CreateView):
-    model = User
-    form_class = BasicSignUpForm
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'basicuser'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
+class PostDetailView(DetailView):
+    model = Job
+    template_name='job_detail.html'
 
 
-class JobSignUpView(CreateView):
-    model = User
-    form_class = JobSignUpForm
-    template_name = 'registration/signup_form.html'
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title','category','image','details']
+    template_name='post_form.html'
+    success_url= ('/')
 
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'jobseeker'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
-
-class EmployerSignUpView(CreateView):
-    model = User
-    form_class = EmployerSignUpForm()
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'employer'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
-
-
-
-
-
+  
 
 def home(request):
+    jobs = Job.objects.all()
     return render(request,'index.html',locals())
 
 def profile(request):
