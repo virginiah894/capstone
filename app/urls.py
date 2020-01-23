@@ -14,7 +14,9 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(),name='post-create'),
     path('job/<int:pk>/',PostDetailView.as_view(),name='job-detail'),
     path('profile/', views.profile , name = 'profile'),
-    
+    path('posts/', views.posts, name = 'posts'),
+    path('job/<int:pk>/update/', PostUpdateView.as_view(),name='update-job'),
+    path('job/<int:pk>/delete/', PostDeleteView.as_view(),name='delete-job'),
 
 
     path('update_profile/',views.update_profile,name='update'),
