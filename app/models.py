@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import *
+from django.contrib.auth.models import User
+import datetime as dt
+from django.utils import timezone
+from django.urls import reverse
 
 
 from PIL import Image
@@ -10,14 +14,13 @@ from django.db.models.signals import  post_save
 
 
 
+
+
 class Category(models.Model):
      category = models.CharField(max_length = 60)
      def __str__(self):
         return self.category
 
-class User(AbstractUser):
-    is_employer = models.BooleanField('employer status', default=False)
-    is_jobseeker  = models.BooleanField('jobseeker status', default=False)
     
 
 
@@ -40,29 +43,6 @@ class Job(models.Model):
     def search_post(cls, search_term):
        jobs = cls.objects.filter(Q (user__username=search_term) | Q (company__company=search_term) | Q (title__icontains=search_term))
        return jobs
-
-
-class Skills(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='skillquiz')
-    name = models.CharField(max_length=255)
-  
-class Subject(models.Model):
-    name = models.CharField(max_length=30)
-
-
-
-
-class JobSeeker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    skills = models.ManyToManyField(Skills, through='skillquiz')
-    interested_jobs = models.ManyToManyField(Job, related_name='interested_jobs')
-class skillquiz(models.Model):
-    jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE, related_name='taken_skills')
-    skills = models.ForeignKey(Skills, on_delete=models.CASCADE, related_name='taken_skills')
-    score = models.FloatField()
-    date = models.DateTimeField(auto_now_add=True)
-
-  
 
 
 
@@ -89,4 +69,16 @@ class Profile(models.Model):
   def save_profile(sender, instance,**kwargs):
     instance.profile.save()
 
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
+    posted_date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='post/')
+    details = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post-detail',kwargs={'pk': self.pk})
