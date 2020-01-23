@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'joblink.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'work',
+        'NAME': 'jobo',
         'USER': 'moringa',
-        'PASSWORD':'work',
+        'PASSWORD':'jobo',
     }
 }
 
@@ -105,10 +105,13 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
 )
 
-AUTH_USER_MODEL= 'app.User'
+
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+LOGIN_REDIRECT_URL='/'
 
 
 # Password validation
