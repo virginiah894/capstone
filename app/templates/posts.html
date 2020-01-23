@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="text-center mt-5 mb-4">
+    <a href="{% url 'post-create' %}">
+      <button class="btn btn-warning">Post your article</button>
+    </a>
+  </div>
+
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class=" card-body">
+          <a href="/view/post/{{post.id}}">
+            <h5 class="card-title">{{post.title}}</h5>
+            <h6>{{post.details}}</h6>
+          </a>
+          {% if post.image %}
+
+          <img src="{{post.image.url}}" alt="" height="250" width="250" style="border-radius: 50%;">
+
+{% endif %}
+          <a href="">
+            <h6 class="card-subtitle mb-2 text-muted">{{post.user}}</h6>
+          </a>
+    
+          
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
