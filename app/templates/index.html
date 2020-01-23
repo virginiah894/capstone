@@ -48,6 +48,28 @@
 </div>
   <button><a href="/accounts/login">LOGIN</a></button>
   <a href="/accounts/register"> Sign up here</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        {% for job in jobs %}
+        <h1>{{job.title}}</h1>
+        <h2>{{job.category}}</h2>
+        <h3>{{job.desciption}}</h3>
+        {% if job.image %}
+        <img src="{{job.image.url}}" alt="job image">
+        {% endif %}
+        <a href="{{job.link.url}}">Read More</a>
+{% endfor %}
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </div>
 
 
   {% endblock %}
