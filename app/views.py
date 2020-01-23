@@ -8,11 +8,13 @@ from django.views.generic import CreateView,ListView,DetailView,CreateView
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from app.forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # app/post_list.html
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin,ListView):
     model = Job
     template_name = 'index.html'
     context_object_name = 'jobs'
@@ -21,12 +23,12 @@ class PostListView(ListView):
 
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin,DetailView):
     model = Job
     template_name='job_detail.html'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     fields = ['title','category','image','details']
     template_name='post_form.html'
