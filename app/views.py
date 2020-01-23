@@ -4,11 +4,11 @@ from .models import *
 from django.contrib import messages
 from .forms import AccountUpdate, DetailsUpdate,JobForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView,ListView,DetailView,CreateView
+from django.views.generic import CreateView,ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from app.forms import *
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 
 # app/post_list.html
@@ -80,6 +80,43 @@ def jobs(request):
     jobs = Job.objects.all()
 
     return render(request, 'jobs.html', {"jobs":jobs})
+
+
+@login_required(login_url='/accounts/login')
+def posts(request):
+  current_user= request.user
+  profile=Profile.objects.get(user=current_user)
+  posts=Post.objects.all()
+  return render(request,'posts.html',{'posts':posts})
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Job
+    fields = ['title', 'description','link']
+    template_name= 'job_form.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        job = self.get_object()
+        if self.request.user == job.user:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Job
+    template_name= 'job_confirm_delete.html'
+    success_url = '/'
+
+    def test_func(self):
+        job = self.get_object()
+        if self.request.user == job.user:
+            return True
+        return False
+
+
+
+
 
 
 
