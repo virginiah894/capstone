@@ -17,7 +17,7 @@ urlpatterns = [
     path('posts/', views.posts, name = 'posts'),
     path('job/<int:pk>/update/', PostUpdateView.as_view(),name='update-job'),
     path('job/<int:pk>/delete/', PostDeleteView.as_view(),name='delete-job'),
-
+    path('search/',views.search_results, name='search_results'),
 
     path('update_profile/',views.update_profile,name='update'),
     path('jobs', views.jobs, name='jobs'),

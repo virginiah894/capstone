@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if jobs%}
+      <h2>Found {{ jobs|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found no job of searched {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if jobs %}
+    {% for job in jobs %}
+      <div class="col-sm-6 col-md-3">
+          <h1>{{job.title}}</h1>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

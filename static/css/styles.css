@@ -1,7 +1,111 @@
 body{
-  background-color: black;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0qY0g4G06H6Kmti3pIzAfPZkBwungjeU5BB1yZKlrtWE9VBiB&s') ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Metal Mania';font-size: 22px;
+  
+ 
+}
+
+body h1,h2,h4,h5,p{
+  color:white;
+  text-align: center;
+  font-family: 'Metal Mania';font-size: 22px;
+  
 }
 img{
   width:350px;
-  height:300px;
+  height:200px;
+}
+button a{
+  font-family: 'Andika';font-size: 22px;
+}
+nav a{
+  color:whitesmoke;
+}
+body a {
+  
+  color:rgb(65, 16, 16);
+}
+hr{
+  border: 5px solid white;
+  border-radius: 2px;
+}
+
+
+/* try styling footer  */
+ 
+ section {
+    padding: 10px 0; 
+}  
+
+section .section-title {
+    text-align: center;
+    color: lightgray;
+    margin-bottom: 50px; 
+    text-transform: uppercase;
+}
+#footer {
+    background:#0f4c75!important;
+}
+#footer h5{
+	padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    color:#ffffff;
+}
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+	font-size:25px;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+	font-size:30px;
+	margin-top:-10px;
+}
+#footer ul.social li a,
+#footer ul.quick-links li a{
+	color:#ffffff;
+}
+#footer ul.social li a:hover{
+	color:#eeeeee;
+}
+#footer ul.quick-links li{
+	padding: 3px 0;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.quick-links li:hover{
+	padding: 3px 0;
+	margin-left:5px;
+	font-weight:200;
+}
+#footer ul.quick-links li a i{
+	margin-right: 5px;
+}
+#footer ul.quick-links li:hover a i {
+    font-weight: 700;
+}
+
+@media (max-width:767px){
+	#footer h5 {
+    padding-left: 0;
+    border-left: transparent;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
 }

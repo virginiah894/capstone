@@ -4,6 +4,7 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 <div class="container">
   <div class="text-center mt-5 mb-2">
@@ -23,7 +24,7 @@
           </a>
           {% if job.image %}
 
-          <img src="{{job.image.url}}" alt="" height="250" width="250" style="border-radius: 50%;">
+          <img src="{{job.image.url}}" alt="">
 
 {% endif %}
           <a href="/user/{{user.username}}">
@@ -38,4 +39,9 @@
     {% endfor %}
   </div>
 </div>
+<style>
+body{
+ background-color: darkblue;
+}
+</style>
 {% endblock %}

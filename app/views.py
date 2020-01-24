@@ -103,6 +103,23 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
+
+
+
+def search_results(request):
+
+    if 'job' in request.GET and request.GET["job"]:
+        search_term = request.GET.get("job")
+        searched_jobs= Job.search_job(search_term)
+        message = f"{search_term}"
+        print(jsearched_jobs.title)
+
+        return render(request, 'search.html',{"message":message,"jobs": searched_jobs})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Job
     template_name= 'job_confirm_delete.html'

@@ -40,8 +40,8 @@ class Job(models.Model):
         return self.title
 
     @classmethod
-    def search_post(cls, search_term):
-       jobs = cls.objects.filter(Q (user__username=search_term) | Q (company__company=search_term) | Q (title__icontains=search_term))
+    def search_job(cls, search_term):
+       jobs = cls.objects.filter(title__icontains=search_term)
        return jobs
 
 

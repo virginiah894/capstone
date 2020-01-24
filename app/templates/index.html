@@ -13,85 +13,183 @@
 {% load static %}
 {% load staticfiles %}
 {% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Milonga' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Metal Mania' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Bevan' rel='stylesheet'>
 
+
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="/">JOBLINK</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  
   </button>
+  <button><a href="{% url 'post-create'%}" style="padding-top: 10px;">Create Post</a></button>
+  <li>
+    <button><a href="{% url 'posts'%}" style="padding-top: 10px;">Posts</a></button>
+  </li>
+ 
+  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="jobs">
+    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  <button><a href="/accounts/login">Login</a></button>
+  <button><a class="dropdown-item" href="{%url 'profile'%}">Profile</a></button>
+  <button><a class="dropdown-item" href="/logout">Logout</a></button>
+ <button><a href="/accounts/register" style="float:right"> Sign up here</a></button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
     <ul class="navbar-nav mr-auto">
       
+
  
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{user.username}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{%url 'profile'%}">Check profile</a>
-          <a class="dropdown-item" href="{% url 'newJob'%} ">Post A Job</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/logout">Logout</a>
+          
         </div>
       </li>
       <li>
-        <a href="{% url 'post-create'%}" style="padding-top: 10px;">create Post</a>
+        
       </li> <br><br><br><br><br>
-      <li>
-        <a href="{% url 'posts'%}" style="padding-top: 10px;">Posts</a>
-      </li>
+      
 
-    </ul><form class="form-inline my-2 my-lg-0" role="search" action="">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="post">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-    </form>
-
+    </ul>
+    
   </div>
 </nav>
 </div>
-  <button><a href="/accounts/login">LOGIN</a></button>
-  <a href="/accounts/register"> Sign up here</a>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
+  
+  
         {% for job in jobs %}
-        <h1>{{job.title}}</h1>
+        <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+        
 
-        {% if job.image %}
-        <img src="{{job.image.url}}" alt="job image">
-        {% endif %}
-        <h2>{{job.company}}</h2>
-        <h3>{{job.description}}</h3>
-        <h4><a href="{% url 'job-detail' job.id%}">Visit job page</a></h4>
-        <a href="{{job.link}}">Read More</a>
+        <div class="card" style="width: 18rem;">
+          {% if job.image %}
+          <img class="card-img-top" src="{{job.image.url}}" alt="Card image cap">
+        </div>
+        </div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title" style="font-family: 'Bevan';font-size: 22px;">{{job.title}}</h5>
+            <p class="card-text">{{job.description}}</p>
+            <p class="card-text"> Hiring Compay:{{job.company}}</p>
+            <h4><a href="{% url 'job-detail' job.id%}">Visit job page</a></h4>
+            
+              <div class="col-md-5">
+
+            <a href="{{job.link}}"  class="btn btn-primary" style="float: right;">Application Link</a>
+            
+            
+            
+              </div>
+          </div>
+        </div>
+        <hr>
+        <hr>
+        <br>
+        <br>
+    
+  </div>
 {% endfor %}
+     
+  
+    <div class="row">
+      <div class="col-md-6">
+      <div class="card" style="width: 15rem;">
+        
+        <div class="card-body">
+          <p class="card-text">LOOKING FOR A JOB ?</p>
+          <a href="{% url 'jobs'%}">click here to see available jobs</a>
+        </div>
       </div>
-
-
-
-
     </div>
 
-
+    <div class="col-md-6">
+      <div class="card"style="width: 15rem;" >
+        <div class="card-body">
+          <p><a href="{% url 'newJob'%}">Post a job </a></p>
+        </div>
+        
+  </div>
+  </div>
 
   </div>
-  <div class="panel panel-default">
-
-    <div class="panel-heading">
-      <h3 class="text-center">Looking For A Job?</h3>
-      <a href="{% url 'jobs'%}">Go here to see jobs available</a>
-    </div>
-    <div class="panel-body">
-      <p><a href="{% url 'newJob'%}">Post a job </a></p>
+    
+</div>
 </div>
 
+<!-- try footer -->
+<section id="footer">
+  <div class="container">
+    <div class="row text-center text-xs-center text-sm-left text-md-left">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <h5>Quick links</h5>
+        <ul class="list-unstyled quick-links">
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <h5>Quick links</h5>
+        <ul class="list-unstyled quick-links">
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+        
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <h5>Quick links</h5>
+        <ul class="list-unstyled quick-links">
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+          <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+               </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+        <ul class="list-unstyled list-inline social text-center">
+          <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
+          <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
+          <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+        </ul>
+      </div>
+      </hr>
+    </div>	
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+        <p><u><a href="https://www.nationaltransaction.com/">Joblink </a></u> is a Registered MSP/ISO certified under the Kenya act 2017</p>
+        <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="" target="_blank">Joblink</a></p>
+      </div>
+      </hr>
+    </div>	
+  </div>
+</section>
+<!-- ./Footer -->
 
 
   {% endblock %}
+
+
+
 
 </body>
 
